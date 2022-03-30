@@ -1,8 +1,11 @@
-.non-nums {
-    display: grid;
-    grid-gap: 10px;
-    grid-template-columns: repeat(3,1fr);
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 100px;
 }
+
+
 
 .numbers {
     display: grid;
@@ -11,9 +14,12 @@
 }
 
 .calculator-ui {
-    display: grid;
-    grid-gap: 10px;
-    grid-template-columns: repeat(4,1fr);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vh;
+    height: 100vh;
+    gap: 20px;
 }
 
 #display {
