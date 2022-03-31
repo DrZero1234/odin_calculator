@@ -1,5 +1,10 @@
 // Basic operator functions
 
+const calc_buttons = document.querySelector(".numbers");
+const DISPLAY = document.querySelector("#display");
+// Selecting every number button
+const num_buttons = calc_buttons.querySelectorAll("*:not(#clear , #equals)")
+
 const test_a = 7;
 const test_b = 3;
 
@@ -20,7 +25,24 @@ const divide = (a,b) => {
 }
 
 
-console.log(add(test_a,test_b))
-console.log(subtract(test_a,test_b))
-console.log(multiply(test_a,test_b))
-console.log(divide(test_a,test_b))
+
+const operate = (operator, a,b) => {
+    return (operator === "+") ? add(a,b)
+        : (operator === "-") ? subtract(a,b)
+        : (operator === "*") ? multiply(a,b)
+        : (operator === "/") ? divide(a,b)
+        : false
+} 
+
+const fill_display = () => {
+    num_buttons.forEach((button) => {
+        button.addEventListener("click", () =>{
+            DISPLAY.textContent += button.textContent;
+        })
+    })
+}
+
+fill_display()
+
+console.log(operate("/",4,5))
+
