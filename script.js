@@ -31,26 +31,22 @@ const operate = (operator, a,b) => {
     return (operator === "+") ? add(a,b)
         : (operator === "-") ? subtract(a,b)
         : (operator === "*") ? multiply(a,b)
+        : (operator === "/" && b === 0) ? null
         : (operator === "/") ? divide(a,b)
-        : false
+        : null
 } 
 
-const fill_display = () => {
-    NUM_BUTTONS.forEach((button) => {
-        button.addEventListener("click", () =>{
-            DISPLAY.textContent += button.textContent;
-        })
+
+NUM_BUTTONS.forEach((button) => {
+    button.addEventListener("click", () =>{
+        DISPLAY.textContent += button.textContent;
     })
-}
+})
 
-const clear = () => {
-    CLEAR_BUTTON.addEventListener("click", () => {
-        DISPLAY.textContent = "";
-    })
-}
+CLEAR_BUTTON.addEventListener("click", () => {
+    DISPLAY.textContent = "";
+})
 
-fill_display();
-clear();
 
-console.log(operate("/",4,5))
+console.log(operate("/",4,2))
 
