@@ -1,9 +1,10 @@
 // Basic operator functions
 
-const calc_buttons = document.querySelector(".numbers");
+const CALC_BUTTONS = document.querySelector(".numbers");
 const DISPLAY = document.querySelector("#display");
 // Selecting every number button
-const num_buttons = calc_buttons.querySelectorAll("*:not(#clear , #equals)")
+const NUM_BUTTONS = CALC_BUTTONS.querySelectorAll("*:not(#clear , #equals)")
+const CLEAR_BUTTON = document.querySelector("#clear");
 
 const test_a = 7;
 const test_b = 3;
@@ -35,14 +36,21 @@ const operate = (operator, a,b) => {
 } 
 
 const fill_display = () => {
-    num_buttons.forEach((button) => {
+    NUM_BUTTONS.forEach((button) => {
         button.addEventListener("click", () =>{
             DISPLAY.textContent += button.textContent;
         })
     })
 }
 
-fill_display()
+const clear = () => {
+    CLEAR_BUTTON.addEventListener("click", () => {
+        DISPLAY.textContent = "";
+    })
+}
+
+fill_display();
+clear();
 
 console.log(operate("/",4,5))
 
