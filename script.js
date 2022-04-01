@@ -1,10 +1,13 @@
 // Basic operator functions
 
 const CALC_BUTTONS = document.querySelector(".numbers");
+const OPERATORS = document.querySelector(".operators")
 const DISPLAY = document.querySelector("#display");
 // Selecting every number button
 const NUM_BUTTONS = CALC_BUTTONS.querySelectorAll("*:not(#clear , #equals)")
+const OPERATOR_BUTTONS = OPERATORS.querySelectorAll("button")
 const CLEAR_BUTTON = document.querySelector("#clear");
+const EQUALS_BUTTON = document.querySelector("#equals")
 
 const test_a = 7;
 const test_b = 3;
@@ -47,6 +50,9 @@ CLEAR_BUTTON.addEventListener("click", () => {
     DISPLAY.textContent = "";
 })
 
+const calculate = () => {
+
+}
 
 console.log(operate("/",4,2))
 
