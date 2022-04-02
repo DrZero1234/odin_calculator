@@ -60,27 +60,22 @@ CLEAR_BUTTON.addEventListener("click", () => {
 })
 
 let fill_display = () => {
-    if (first_operand === null && second_operand === null) {
-        OPERATOR_BUTTONS.forEach((button) => {
-            button.addEventListener("click", () => {
+    OPERATOR_BUTTONS.forEach((button) => {
+        button.addEventListener("click", () => {
+            if (first_operand === null && first_operand === null) {
                 first_operand = Number(DISPLAY_LOWER_TEXT.textContent);
                 DISPLAY_UPPER_TEXT.textContent = DISPLAY_LOWER_TEXT.textContent;
                 DISPLAY_LOWER_TEXT.textContent = ""
-            })
-        })
-    } else if (first_operand != null && second_operand === null) {
-        OPERATOR_BUTTONS.forEach((button) => {
-            button.addEventListener("click", () => {
+            } else if (first_operand != null && second_operand === null) {
                 second_operand = Number(DISPLAY_LOWER_TEXT.textContent);
-                DISPLAY_UPPER_TEXT.textContent = "";
-                DISPLAY_LOWER_TEXT.textContent = +operate(button.id, first_operand, second_operand)
-                first_operand = operate(button.id, first_operand, second_operand)
-            })
+                DISPLAY_UPPER_TEXT.textContent = operate(button.textContent.trim(), first_operand, second_operand).toString();
+                first_operand = operate(button.textContent.trim(), first_operand, second_operand).toString();
+                second_operand = null;
+                DISPLAY_LOWER_TEXT.textContent = ""
+            }
         })
-    }
-    
+    })
 }
-
 fill_display()
 
 
