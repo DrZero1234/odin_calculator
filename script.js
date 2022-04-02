@@ -5,15 +5,17 @@ const OPERATORS = document.querySelector(".operators")
 const DISPLAY = document.querySelector("#display");
 const DISPLAY_NUMBERS = document.querySelector(".display-numbers").querySelectorAll("li");
 const DISPLAY_UPPER_TEXT = DISPLAY_NUMBERS[0];
-DISPLAY_LOWER_TEXT = DISPLAY_NUMBERS[1];
+const DISPLAY_LOWER_TEXT = DISPLAY_NUMBERS[1];
 // Selecting every number button
 const NUM_BUTTONS = CALC_BUTTONS.querySelectorAll("*:not(#clear , #equals)")
 const OPERATOR_BUTTONS = OPERATORS.querySelectorAll("button")
 const CLEAR_BUTTON = document.querySelector("#clear");
 const EQUALS_BUTTON = document.querySelector("#equals")
 
-const test_a = 7;
-const test_b = 3;
+let first_operand = null;
+let second_operand = null;
+let operator = null;
+
 
 const add = (a,b) => {
     return Number(a) + Number(b)
@@ -50,13 +52,36 @@ NUM_BUTTONS.forEach((button) => {
 })
 
 CLEAR_BUTTON.addEventListener("click", () => {
+    first_operand = null;
+    second_operand = null;
+    operator = null;
     DISPLAY_UPPER_TEXT.textContent = "";
     DISPLAY_LOWER_TEXT.textContent = "";
 })
 
-const calculate = () => {
-
+let fill_display = () => {
+    if (first_operand === null && second_operand === null) {
+        OPERATOR_BUTTONS.forEach((button) => {
+            button.addEventListener("click", () => {
+                first_operand = Number(DISPLAY_LOWER_TEXT.textContent);
+                DISPLAY_UPPER_TEXT.textContent = DISPLAY_LOWER_TEXT.textContent;
+                DISPLAY_LOWER_TEXT.textContent = ""
+            })
+        })
+    } else if (first_operand != null && second_operand === null) {
+        OPERATOR_BUTTONS.forEach((button) => {
+            button.addEventListener("click", () => {
+                second_operand = Number(DISPLAY_LOWER_TEXT.textContent);
+                DISPLAY_UPPER_TEXT.textContent = "";
+                DISPLAY_LOWER_TEXT.textContent = +operate(button.id, first_operand, second_operand)
+                first_operand = operate(button.id, first_operand, second_operand)
+            })
+        })
+    }
+    
 }
 
-console.log(operate("/",4,2))
+fill_display()
+
+
 
