@@ -1,12 +1,21 @@
 // Basic operator functions
 
-const calc_buttons = document.querySelector(".numbers");
+const CALC_BUTTONS = document.querySelector(".numbers");
+const OPERATORS = document.querySelector(".operators")
 const DISPLAY = document.querySelector("#display");
+const DISPLAY_NUMBERS = document.querySelector(".display-numbers").querySelectorAll("li");
+const DISPLAY_UPPER_TEXT = DISPLAY_NUMBERS[0];
+const DISPLAY_LOWER_TEXT = DISPLAY_NUMBERS[1];
 // Selecting every number button
-const num_buttons = calc_buttons.querySelectorAll("*:not(#clear , #equals)")
+const NUM_BUTTONS = CALC_BUTTONS.querySelectorAll("*:not(#clear , #equals)")
+const OPERATOR_BUTTONS = OPERATORS.querySelectorAll("button")
+const CLEAR_BUTTON = document.querySelector("#clear");
+const EQUALS_BUTTON = document.querySelector("#equals")
 
-const test_a = 7;
-const test_b = 3;
+let first_operand = null;
+let second_operand = null;
+let operator = null;
+
 
 const add = (a,b) => {
     return Number(a) + Number(b)
@@ -30,19 +39,44 @@ const operate = (operator, a,b) => {
     return (operator === "+") ? add(a,b)
         : (operator === "-") ? subtract(a,b)
         : (operator === "*") ? multiply(a,b)
+        : (operator === "/" && b === 0) ? null
         : (operator === "/") ? divide(a,b)
-        : false
+        : null
 } 
 
-const fill_display = () => {
-    num_buttons.forEach((button) => {
-        button.addEventListener("click", () =>{
-            DISPLAY.textContent += button.textContent;
+
+NUM_BUTTONS.forEach((button) => {
+    button.addEventListener("click", () =>{
+        DISPLAY_LOWER_TEXT.textContent += button.textContent;
+    })
+})
+
+CLEAR_BUTTON.addEventListener("click", () => {
+    first_operand = null;
+    second_operand = null;
+    operator = null;
+    DISPLAY_UPPER_TEXT.textContent = "";
+    DISPLAY_LOWER_TEXT.textContent = "";
+})
+
+let fill_display = () => {
+    OPERATOR_BUTTONS.forEach((button) => {
+        button.addEventListener("click", () => {
+            if (first_operand === null && first_operand === null) {
+                first_operand = Number(DISPLAY_LOWER_TEXT.textContent);
+                DISPLAY_UPPER_TEXT.textContent = DISPLAY_LOWER_TEXT.textContent;
+                DISPLAY_LOWER_TEXT.textContent = ""
+            } else if (first_operand != null && second_operand === null) {
+                second_operand = Number(DISPLAY_LOWER_TEXT.textContent);
+                DISPLAY_UPPER_TEXT.textContent = operate(button.textContent.trim(), first_operand, second_operand).toString();
+                first_operand = operate(button.textContent.trim(), first_operand, second_operand);
+                second_operand = null;
+                DISPLAY_LOWER_TEXT.textContent = ""
+            }
         })
     })
 }
-
 fill_display()
 
-console.log(operate("/",4,5))
+
 
