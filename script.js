@@ -82,6 +82,14 @@ let fill_display = () => {
             console.log(`Second operand: ${second_operand}`)
         })
     })
+    EQUALS_BUTTON.addEventListener("click", () => {
+        if (first_operand != null && second_operand === null && DISPLAY_LOWER_TEXT.textContent != "") {
+            first_operand = operate(operator, first_operand, DISPLAY_LOWER_TEXT.textContent)
+            DISPLAY_UPPER_TEXT.textContent = first_operand.toString();
+            DISPLAY_LOWER_TEXT.textContent = "";
+ 
+        }
+    })
 }
 fill_display()
 
