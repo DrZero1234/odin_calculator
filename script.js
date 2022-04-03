@@ -40,6 +40,7 @@ const operate = (operator, a,b) => {
     return (operator === "+") ? add(a,b)
         : (operator === "-") ? subtract(a,b)
         : (operator === "*") ? multiply(a,b)
+        // TODO Error message
         : (operator === "/" && (a === 0 || b === 0)) ?  0 
         : (operator === "/") ? divide(a,b)
         : null
@@ -59,6 +60,11 @@ CLEAR_BUTTON.addEventListener("click", () => {
     DISPLAY_UPPER_TEXT.textContent = "";
     DISPLAY_LOWER_TEXT.textContent = "";
 })
+
+//  TOOD Floating number (max 1)
+// TODO STYLE THE CALCULATOR
+// TODO ADD BACKSPACE
+// TODO ADD keyboard support
 
 let fill_display = () => {
     OPERATOR_BUTTONS.forEach((button) => {
