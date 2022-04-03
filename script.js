@@ -69,7 +69,7 @@ let fill_display = () => {
             } else if (first_operand != null && second_operand === null) {
                 second_operand = Number(DISPLAY_LOWER_TEXT.textContent);
                 DISPLAY_UPPER_TEXT.textContent = operate(button.textContent.trim(), first_operand, second_operand).toString();
-                first_operand = operate(button.textContent.trim(), first_operand, second_operand).toString();
+                first_operand = operate(button.textContent.trim(), first_operand, second_operand);
                 second_operand = null;
                 DISPLAY_LOWER_TEXT.textContent = ""
             }
