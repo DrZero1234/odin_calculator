@@ -15,6 +15,7 @@ const EQUALS_BUTTON = document.querySelector("#equals")
 let first_operand = null;
 let second_operand = null;
 let operator = null;
+let next_operator = null;
 
 
 const add = (a,b) => {
@@ -39,7 +40,7 @@ const operate = (operator, a,b) => {
     return (operator === "+") ? add(a,b)
         : (operator === "-") ? subtract(a,b)
         : (operator === "*") ? multiply(a,b)
-        : (operator === "/" && b === 0) ? null
+        : (operator === "/" && (a === 0 || b === 0)) ?  0 
         : (operator === "/") ? divide(a,b)
         : null
 } 
@@ -62,17 +63,23 @@ CLEAR_BUTTON.addEventListener("click", () => {
 let fill_display = () => {
     OPERATOR_BUTTONS.forEach((button) => {
         button.addEventListener("click", () => {
-            if (first_operand === null && first_operand === null) {
+            let lower_text = DISPLAY_LOWER_TEXT.textContent.toString();
+            let upper_text = DISPLAY_UPPER_TEXT.textContent.toString();
+            if (first_operand === null && second_operand === null) {
                 first_operand = Number(DISPLAY_LOWER_TEXT.textContent);
-                DISPLAY_UPPER_TEXT.textContent = DISPLAY_LOWER_TEXT.textContent;
+                operator = button.textContent.trim();
+                DISPLAY_UPPER_TEXT.textContent = first_operand.toString();
                 DISPLAY_LOWER_TEXT.textContent = ""
-            } else if (first_operand != null && second_operand === null) {
-                second_operand = Number(DISPLAY_LOWER_TEXT.textContent);
-                DISPLAY_UPPER_TEXT.textContent = operate(button.textContent.trim(), first_operand, second_operand).toString();
-                first_operand = operate(button.textContent.trim(), first_operand, second_operand).toString();
+            } else if (first_operand != null && second_operand === null && operator != null) {
+                second_operand = Number(lower_text);
+                DISPLAY_UPPER_TEXT.textContent = operate(operator, first_operand, second_operand).toString();
+                first_operand = operate(operator, first_operand, second_operand);
                 second_operand = null;
                 DISPLAY_LOWER_TEXT.textContent = ""
+                operator = button.textContent.trim();
             }
+            console.log(`First operand: ${first_operand}`);
+            console.log(`Second operand: ${second_operand}`)
         })
     })
 }
