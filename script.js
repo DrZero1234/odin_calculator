@@ -61,10 +61,12 @@ CLEAR_BUTTON.addEventListener("click", () => {
 })
 
 let fill_display = () => {
+    let lower_text
+    let upper_text
     OPERATOR_BUTTONS.forEach((button) => {
         button.addEventListener("click", () => {
-            let lower_text = DISPLAY_LOWER_TEXT.textContent.toString();
-            let upper_text = DISPLAY_UPPER_TEXT.textContent.toString();
+            lower_text = DISPLAY_LOWER_TEXT.textContent.toString();
+            upper_text = DISPLAY_UPPER_TEXT.textContent.toString();
             if (first_operand === null && second_operand === null) {
                 first_operand = Number(DISPLAY_LOWER_TEXT.textContent);
                 operator = button.textContent.trim();
@@ -78,9 +80,19 @@ let fill_display = () => {
                 DISPLAY_LOWER_TEXT.textContent = ""
                 operator = button.textContent.trim();
             }
-            console.log(`First operand: ${first_operand}`);
-            console.log(`Second operand: ${second_operand}`)
+
         })
+    })
+    EQUALS_BUTTON.addEventListener("click", () => {
+        console.log(`First operand: ${first_operand}`);
+        console.log(`Second operand ${second_operand}`)
+        console.log(`Lower_text ${lower_text}`)
+        console.log(`Operator: ${operator}`)
+        if (first_operand != null && lower_text != "" && operator != null) {
+            lower_text.textContent = operate(operator, first_operand, second_operand).toString()
+            first_operand = operate(operator, first_operand, second_operand)
+            second_operand = null;
+        }
     })
 }
 fill_display()
