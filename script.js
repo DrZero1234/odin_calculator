@@ -11,6 +11,7 @@ const NUM_BUTTONS = CALC_BUTTONS.querySelectorAll("*:not(#clear , #equals , #bac
 const OPERATOR_BUTTONS = OPERATORS.querySelectorAll("button")
 const CLEAR_BUTTON = document.querySelector("#clear");
 const EQUALS_BUTTON = document.querySelector("#equals")
+const BACKSPACE_BUTTON = document.querySelector("#backspace")
 
 let first_operand = null;
 let second_operand = null;
@@ -59,6 +60,12 @@ CLEAR_BUTTON.addEventListener("click", () => {
     operator = null;
     DISPLAY_UPPER_TEXT.textContent = "";
     DISPLAY_LOWER_TEXT.textContent = "";
+})
+
+BACKSPACE_BUTTON.addEventListener("click", () => {
+    if (DISPLAY_LOWER_TEXT.textContent.toString().length > 0) {
+        DISPLAY_LOWER_TEXT.textContent = DISPLAY_LOWER_TEXT.textContent.toString().substring(0, DISPLAY_LOWER_TEXT.textContent.toString().length - 1 )
+    }
 })
 
 //  TOOD Floating number (max 1)
