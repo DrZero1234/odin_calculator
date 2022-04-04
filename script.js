@@ -7,7 +7,7 @@ const DISPLAY_NUMBERS = document.querySelector(".display-numbers").querySelector
 const DISPLAY_UPPER_TEXT = DISPLAY_NUMBERS[0];
 const DISPLAY_LOWER_TEXT = DISPLAY_NUMBERS[1];
 // Selecting every number button
-const NUM_BUTTONS = CALC_BUTTONS.querySelectorAll("*:not(#clear , #equals)")
+const NUM_BUTTONS = CALC_BUTTONS.querySelectorAll("*:not(#clear , #equals , #backspace , #decimal)")
 const OPERATOR_BUTTONS = OPERATORS.querySelectorAll("button")
 const CLEAR_BUTTON = document.querySelector("#clear");
 const EQUALS_BUTTON = document.querySelector("#equals")
@@ -40,6 +40,7 @@ const operate = (operator, a,b) => {
     return (operator === "+") ? add(a,b)
         : (operator === "-") ? subtract(a,b)
         : (operator === "*") ? multiply(a,b)
+        // TODO Error message
         : (operator === "/" && (a === 0 || b === 0)) ?  0 
         : (operator === "/") ? divide(a,b)
         : null
@@ -60,10 +61,19 @@ CLEAR_BUTTON.addEventListener("click", () => {
     DISPLAY_LOWER_TEXT.textContent = "";
 })
 
+//  TOOD Floating number (max 1)
+// TODO STYLE THE CALCULATOR
+// TODO ADD BACKSPACE
+// TODO ADD keyboard support
+
 let fill_display = () => {
     let lower_text
     let upper_text
     OPERATOR_BUTTONS.forEach((button) => {
+        console.log(`First operand: ${first_operand}`);
+        console.log(`Second operand ${second_operand}`)
+        console.log(`Lower_text ${lower_text}`)
+        console.log(`Operator: ${operator}`)
         button.addEventListener("click", () => {
             lower_text = DISPLAY_LOWER_TEXT.textContent.toString();
             upper_text = DISPLAY_UPPER_TEXT.textContent.toString();
@@ -84,15 +94,17 @@ let fill_display = () => {
         })
     })
     EQUALS_BUTTON.addEventListener("click", () => {
+
+        if (first_operand != null && second_operand === null && DISPLAY_LOWER_TEXT.textContent != "") {
+
+            first_operand = operate(operator, first_operand, DISPLAY_LOWER_TEXT.textContent)
+            DISPLAY_UPPER_TEXT.textContent = first_operand.toString();
+            DISPLAY_LOWER_TEXT.textContent = "";
+        }
         console.log(`First operand: ${first_operand}`);
         console.log(`Second operand ${second_operand}`)
         console.log(`Lower_text ${lower_text}`)
         console.log(`Operator: ${operator}`)
-        if (first_operand != null && lower_text != "" && operator != null) {
-            lower_text.textContent = operate(operator, first_operand, second_operand).toString()
-            first_operand = operate(operator, first_operand, second_operand)
-            second_operand = null;
-        }
     })
 }
 fill_display()
