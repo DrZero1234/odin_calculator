@@ -63,7 +63,6 @@ CLEAR_BUTTON.addEventListener("click", () => {
     operator = null;
     DISPLAY_UPPER_TEXT.textContent = "";
     DISPLAY_LOWER_TEXT.textContent = "";
-    DECIMAL_BUTTON.disabled = false;
 })
 
 BACKSPACE_BUTTON.addEventListener("click", () => {
@@ -82,10 +81,9 @@ DECIMAL_BUTTON.addEventListener("click", () => {
     }
 })
 
-//  TOOD Floating number (max 1)
 // TODO STYLE THE CALCULATOR
-// TODO ADD BACKSPACE
 // TODO ADD keyboard support
+// TODO Round down long decimal
 
 let fill_display = () => {
     let lower_text
@@ -101,7 +99,7 @@ let fill_display = () => {
             if (first_operand === null && second_operand === null ) {
                 first_operand = Number(DISPLAY_LOWER_TEXT.textContent);
                 operator = button.textContent.trim();
-                DISPLAY_UPPER_TEXT.textContent = first_operand.toString();
+                DISPLAY_UPPER_TEXT.textContent = first_operand.toString() + operator;
                 DISPLAY_LOWER_TEXT.textContent = ""
             } else if (first_operand != null && second_operand === null && operator != null) {
                 second_operand = Number(lower_text);
